@@ -6,15 +6,15 @@ import InputError from "@/Components/InputErrors";
 const Edit = () => {
     const {student} = usePage().props;
 
-    const { data, setData, post, errors, processing} = useForm({
+     const { data, setData, put, errors, processing} = useForm({
                                                            name: student.name,
                                                            email: student.email,
                                                            course: student.course,
                                                         })
 
-    function submitEdictedData(e) {
+     function submitEditedData(e) {
         e.preventDefault();
-        post(route("student.update",{id: student.id}));
+        put(route("student.update",{id: student.id}));
     }                                     
 
   return (
@@ -24,7 +24,8 @@ const Edit = () => {
             <div className="mb-6 border-b pb-2">
                 <h2 className="text-2xl font-bold text-gray-800">Edit Student</h2>
             </div>
-            <form onSubmit={submitEdictedData}>
+           <form onSubmit={submitEditedData}>
+
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                         Name
@@ -40,6 +41,7 @@ const Edit = () => {
                        <InputError message={errors.name}/>
 
                 </div>
+
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                         Email
@@ -53,6 +55,7 @@ const Edit = () => {
                     />
                        <InputError message={errors.email}/>
                 </div>
+
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="course">
                         Course
@@ -66,6 +69,7 @@ const Edit = () => {
                     />
                     <InputError message={errors.course}/>
                 </div>
+
                 <div className="flex items-center justify-between">
                     <button
                         className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-200"
@@ -74,6 +78,7 @@ const Edit = () => {
                         Update Student
                     </button>
                 </div>
+                
             </form>
         </div>
 

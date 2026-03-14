@@ -3,7 +3,7 @@ import { Link, usePage } from '@inertiajs/react';
 import React from 'react'
 
 const Home = () => {
-      const {students, flash} = usePage().props;
+      const {students, flash, auth} = usePage().props;
   
       
     //  {JSON.stringify(students)} 
@@ -12,8 +12,9 @@ const Home = () => {
 
   return (
       <>
-          
+      
           <div className="flex flex-col mb-4 gap-4">
+            <h1>{auth.user.type}</h1>
               <div>
                 <Link href={route("page.add")} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-200">
                     Add Student
@@ -25,10 +26,11 @@ const Home = () => {
           </div>
 
             {/* show success message after add or update or delete student */}
+            {flash.success && (
               <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
                   {flash.success}
               </div>
-          
+            )}          
 
           <div className="bg-white shadow-md rounded-lg">
             <table className="min-w-full leading-normal">
@@ -71,9 +73,22 @@ const Home = () => {
                         <p className="text-gray-900 whitespace-no-wrap">{student.course}</p>
                       </td>
                       <td className="px-5 py-5 text-sm flex gap-2">
+
+                        {/* only show view button for teachers and the authenticated student */}
+                        {( auth.user.type === "Teacher" || auth.user.id == student.id ) &&
                         <Link href={route("page.view",{id: student.id})} className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded text-xs">View</Link>
+                        }
+
+                        {/* only show edit button for the authenticated user which must still be a student */}
+                        { student.id == auth.user.id  &&
                         <Link href={route("page.edit",{id: student.id})} className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 rounded text-xs">Edit</Link>
-                        <Link className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs">Delete</Link>
+                        }
+
+                        {/* only show delete button if the authenticated user is not student */}
+                        {auth.user.type == "Teacher" && 
+                        <Link href={route("student.delete",{id: student.id})} className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs">Delete</Link>
+                         }
+
                       </td>
                   </tr>
                 ))}
