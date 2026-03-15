@@ -32,6 +32,11 @@ function View() {
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <label className="block text-gray-500 text-xs font-bold uppercase mb-1">Account Created At</label>
+            <p className="text-gray-900 text-lg font-medium">{student.created_at}</p>
+          </div>
+
+          <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
             <label className="block text-gray-500 text-xs font-bold uppercase mb-1">Course</label>
             <p className="text-gray-900 text-lg font-medium">{student.course}</p>
           </div>

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ViewPageResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HomeController extends Controller
@@ -60,7 +61,8 @@ class HomeController extends Controller
     public function ViewPage($id){
         
         $student = User::findOrFail($id);
-        return Inertia::render("Students/View",["student" => $student]);
+        
+        return Inertia::render("Students/View",["student" => new ViewPageResource($student)]);
     }
 
     // this show the edit page

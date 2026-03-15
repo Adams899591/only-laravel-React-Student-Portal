@@ -16,9 +16,10 @@ const Home = () => {
           <div className="flex flex-col mb-4 gap-4">
             <h1>{auth.user.type}</h1>
               <div>
+                {auth.user.type == "Teacher" &&
                 <Link href={route("page.add")} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-200">
                     Add Student
-                </Link>
+                </Link>}
               </div>
               <div>
                 <input type="text" placeholder="Search students..." className="w-full sm:w-1/3 px-4 py-2 rounded shadow border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500" />
